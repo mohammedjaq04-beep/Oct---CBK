@@ -1,0 +1,1792 @@
+{
+  "name": "CBK_TELE",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://youtube-v2.p.rapidapi.com/video/subtitles",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "video_id",
+              "value": "={{ $('Extract video ID').item.json.video_id }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": " 779445e577msh57c3506030c5972p16766ajsndb73afc4a6ef"
+            },
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "youtube-v2.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2320,
+        320
+      ],
+      "id": "83e595e9-f43b-4f94-ae43-9bcec7b67a7b",
+      "name": "Transcript – RapidAPI2",
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.messageType }}",
+                    "rightValue": "new_url",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "de881e00-2b02-454d-839a-e17a42b19508"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c0c8ea71-3680-40f7-b59c-f50e82eed3db",
+                    "leftValue": "={{ $json.messageType }}",
+                    "rightValue": "user_choice",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2b5da973-930c-4a13-9288-b0fcceb6593d",
+                    "leftValue": "={{ $json.messageType }}",
+                    "rightValue": "no_link",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1072,
+        400
+      ],
+      "id": "07ed3b01-ac7f-425a-9e49-e0b1c4bc6fe4",
+      "name": "Switch2"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "14dDFMAM22IQ1AN-Seu36t-ZAlyAesbWFIvswblDAjmE",
+          "mode": "list",
+          "cachedResultName": "History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14dDFMAM22IQ1AN-Seu36t-ZAlyAesbWFIvswblDAjmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "الورقة1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14dDFMAM22IQ1AN-Seu36t-ZAlyAesbWFIvswblDAjmE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Vid_url": "={{ $('Getting URL').item.json.record.user_.savedUrl }}",
+            "User_Role": "={{ $('Telegram Trigger').item.json.message.text }}",
+            "User_id": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+            "Date": "={{ $now.format('D - M - Y') }}",
+            "Time": "={{ $now.format('HH:mm:ss') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Vid_url",
+              "displayName": "Vid_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "User_Role",
+              "displayName": "User_Role",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "User_id",
+              "displayName": "User_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "output",
+              "displayName": "output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        5616,
+        288
+      ],
+      "id": "bff5f446-5811-4f2b-b646-8f1d2ca3aa62",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mQajJyAqV0Ji0pDg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash-lite",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash-lite"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are the official chat assistant for the Clickbait Killer (CBK) bot. Your task is to handle all messages that are not a video URL or a role selection.\nWelcome: Start with a brief greeting.\nSelf-ID: If asked, identify yourself. If the user's message is in Arabic, use the name \"قاتل العناوين المضللة.\" Otherwise, use \"Clickbait Killer (CBK).\"\nPrimary Goal: For all other messages, be formal and concise. Your main function is to guide the user to provide a video URL so you can assist them.",
+              "role": "model"
+            },
+            {
+              "content": "={{ $json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        608
+      ],
+      "id": "fc69d458-246c-4c26-a76a-d5125be9b9cc",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nJdsKAnaumBmpPWy",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://api.jsonbin.io/v3/b/68d4028bd0ea881f40894e5c",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Master-Key",
+              "value": "$2a$10$7JNJsOxdy91OtWyNj04wIuq7ui2eG2jsWvLqh2DMo0oP9UzzQHLTy"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"user_{{ $json.contacts[0].wa_id }}\": {\n    \"savedUrl\": \"{{ $json.message.text }}\",\n    \"timestamp\": {{ Date.now() }}\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1360,
+        224
+      ],
+      "id": "08af8755-10a0-406c-acec-936c47e862a5",
+      "name": "Saving the URL"
+    },
+    {
+      "parameters": {
+        "url": "https://api.jsonbin.io/v3/b/68d4028bd0ea881f40894e5c/latest",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Master-Key",
+              "value": "$2a$10$7JNJsOxdy91OtWyNj04wIuq7ui2eG2jsWvLqh2DMo0oP9UzzQHLTy"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1360,
+        416
+      ],
+      "id": "cc29988a-dd47-4be5-aeaa-7aeec1c6b338",
+      "name": "Getting URL"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        3216,
+        128
+      ],
+      "id": "c6b2e5c4-4a97-4596-be41-d22a04f2fbda",
+      "name": "AI Agent4"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        3296,
+        352
+      ],
+      "id": "131a0824-76d1-49f1-ace1-7d1f16f4d43b",
+      "name": "Google Gemini Chat Model4",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nJdsKAnaumBmpPWy",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "bd238aae-0e34-4c59-944f-59f39e599fa0"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "1"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "66bff579-54c1-4ead-a920-8a9d1ea16b32",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "2"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4a340322-5f3a-4a21-bc6c-9817641aaa6f",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "3"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6d9d3cec-cf6e-4050-98bc-a6fc8d8fa74d",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "4",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2768,
+        192
+      ],
+      "id": "1a3d7935-8a4d-455c-823c-ba937d9769b5",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $('YouTube Data API v3').first().json.items;\n\n// ✅ Handle missing or empty items safely\nif (!items || !Array.isArray(items) || items.length === 0) {\n  return [{ json: { prompt: \"Error: No video data found.\" } }];\n}\n\nconst video = items[0];\nconst title = video?.snippet?.title || \"Unknown title\";\nconst views = video?.statistics?.viewCount || \"0\";\nconst likes = video?.statistics?.likeCount || \"0\";\nconst categoryId = video?.snippet?.categoryId || \"0\";\n\n// ✅ Handle missing transcript safely\nlet transcript = $('Merge transcript').first()?.json?.transcriptText || \"Transcript not available.\";\n\n// ✅ Truncate transcript to prevent exceeding 4096 char limit\nconst MAX_TRANSCRIPT_LENGTH = 1500;\nif (transcript.length > MAX_TRANSCRIPT_LENGTH) {\n  transcript = transcript.slice(0, MAX_TRANSCRIPT_LENGTH) + \"... [truncated]\";\n}\n\n// ✅ View-to-Like ratio helper\nconst viewLikeRatio = views !== \"0\" \n  ? (Number(likes) / Number(views) * 100).toFixed(2) \n  : \"0\";\n\n// ✅ Category mapping (from YouTube API docs)\nconst categories = {\n  1: \"Film & Animation\", 2: \"Autos & Vehicles\", 10: \"Music\", 15: \"Pets & Animals\",\n  17: \"Sports\", 18: \"Short Movies\", 19: \"Travel & Events\", 20: \"Gaming\",\n  21: \"Videoblogging\", 22: \"People & Blogs\", 23: \"Comedy\", 24: \"Entertainment\",\n  25: \"News & Politics\", 26: \"Howto & Style\", 27: \"Education\", 28: \"Science & Technology\",\n  29: \"Nonprofits & Activism\", 30: \"Movies\", 31: \"Anime/Animation\", 32: \"Action/Adventure\",\n  33: \"Classics\", 34: \"Documentary\", 35: \"Drama\", 36: \"Family\", 37: \"Foreign\",\n  38: \"Horror\", 39: \"Sci-Fi/Fantasy\", 40: \"Thriller\", 41: \"Shorts\", 42: \"Shows\", 43: \"Trailers\"\n};\nconst categoryName = categories[categoryId] || \"Unknown\";\n\n// ✅ Build the prompt\nfunction buildPrompt(extraSection = \"\") {\n  let prompt = `\nYou are an assistant that analyzes YouTube videos for clickbait.  \nThis response is written **for a Request Type: classic cbk**.  \nIMPORTANT: Always answer in the **same language as the video** (detected from the title + transcript).  \nKeep your response concise and always under 4096 characters.  \nVideo information:\n- Title: ${title}\n- Views: ${views}\n- Likes: ${likes}\n- View-to-Like Ratio: ${viewLikeRatio}%\n- Category: ${categoryName}\n- Transcript: ${transcript}\nClassify this video for clickbait using these categories:\n- red (bad clickbait) 🔴 → strongly mismatched or exaggerated\n- yellow (mild clickbait) 🟡 → partially accurate, some exaggeration\n- green (not clickbait) 🟢 → accurate, no clear exaggeration\nYour answer must always follow this **organized structure**:\n📎  Service type: Classic CBK service (1)\n📌 Title: ${title}  \n🏷️ Label: <color + emoji> (Clickbait Score: XX%)  \n📝 Reasoning: <short explanation in video’s language, focusing on title vs transcript accuracy>  \n📊 View-to-Like Ratio: ${viewLikeRatio}%  \n🏷️ Category: ${categoryName}  \n${extraSection}\n\nReminder: The \"Clickbait Score\" percentage reflects **how much the title looks like clickbait compared to the actual content**, not AI certainty.\n`;\n  if (prompt.length > 4000) {\n    prompt = prompt.slice(0, 4000) + \"... [truncated]\";\n  }\n  return prompt;\n}\n\n// ✅ Call the function to get the final prompt\nconst finalPrompt = buildPrompt(\"\");\n\n// ✅ Return properly for n8n\nreturn [{\n  json: {\n    prompt: finalPrompt\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2992,
+        -64
+      ],
+      "id": "4d059377-e8ce-44ca-bb56-544ada95aa42",
+      "name": "Build Prompt CBK"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the input data from the previous node\nconst video = $('YouTube Data API v3').first().json.items;\n\n// Truncate transcript to a safe length for the AI model\nlet transcript = $('Merge transcript').first()?.json?.transcriptText || \"Transcript not available.\";\nconst MAX_LENGTH = 3000;\nif (transcript.length > MAX_LENGTH) {\n  transcript = transcript.slice(0, MAX_LENGTH) + \"... [truncated]\";\n}\n\n// Detect if title is Arabic\nconst isArabic = video.title && /^[\\u0600-\\u06FF]/.test(video.title);\n\n// Build the final prompt (plain text only, no Markdown)\nconst finalPrompt = `\nYou are a highly skilled content summarizer. This is the second operation, i.e., generating a summary of the video content.\n\nInstructions:\n- Read the video title and full script below.\n- Detect the language of the video from the title and script.\n- Generate the summary in the same language as the video.\n- Keep the output plain text, structured, and UX-friendly.\n- Use clear headings and emojis for sections.\n- Put this at the top beginning: 📎 Service type: Summary (2)\n\nVideo Information\nTitle: ${video.title || 'Unknown title'}\n\nScript (truncated if too long):\n${transcript}\n\nSummary Output\n${isArabic ? \"ملخص من جملة واحدة\" : \"ONE-SENTENCE SUMMARY\"}:\nA single, very brief takeaway capturing the core message of the video.\n\n${isArabic ? \"النقاط الرئيسية\" : \"KEY BULLETS\"}:\n- Main topic or idea 1\n- Main topic or idea 2\n- Main topic or idea 3\n\n${isArabic ? \"الملخص الكامل\" : \"FULL SUMMARY\"}:\nA clear, comprehensive paragraph summarizing the entire video content, main points, and conclusion.\n\nFormatting Guidelines:\n- Keep headings simple and emojis for visual clarity.\n- Keep the text clean, readable, and professional.\n- Output must match the language of the video.\n`.trim();\n\n// Return plain text only\nreturn [{\n  json: {\n    prompt: finalPrompt\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2992,
+        128
+      ],
+      "id": "c6018bbb-2588-4426-ab69-2a4d6f2b68ad",
+      "name": "Build Prompt Summary"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the input data from the previous node\nconst video = $('YouTube Data API v3').first().json.items;\n\n// Truncate transcript to a safe length for the AI model\nlet transcript = $('Merge transcript').first()?.json?.transcriptText || \"Transcript not available.\";\nconst MAX_LENGTH = 3000;\nif (transcript.length > MAX_LENGTH) {\n  transcript = transcript.slice(0, MAX_LENGTH) + \"... [truncated]\";\n}\n\n// Detect if video is in Arabic\nfunction isArabic(text) {\n  return /[\\u0600-\\u06FF]/.test(text);\n}\n\nconst arabic = isArabic(video.title);\n\n// Labels depending on language\nconst headerLabel = arabic ? \"📌 الخيار الثالث: بداية الفيديو الفعلية\" : \"📌 Third Option: Start of Actual Video\";\nconst startLabel = arabic ? \"⏱️ الثانية\" : \"⏱️ Start Time (sec)\";\nconst phraseLabel = arabic ? \"📝 العبارة الافتتاحية\" : \"📝 Starting Phrase\";\nconst reasoningLabel = arabic ? \"📊 سبب الاختيار\" : \"📊 Reasoning\";\n\n// Build the final prompt\nconst finalPrompt = `\nYou are a YouTube video analyst. Your task is to find the **exact point in the transcript where the actual video content begins**. This is the **third option/operation**.\n\nInstructions:\n- Ignore introductions, sponsor messages, and \"like and subscribe\" requests.\n- Pinpoint the first sentence that directly addresses the main topic.\n- Generate the output in the **same language as the video**.\n- Keep the output plain text, UX-friendly, with emojis and bold headings.\n\n**Transcript:** ${transcript}\n\n**Example Output Style:**\n${headerLabel}  \n${startLabel}: 2 (immediately after the intro music)  \n${phraseLabel}: في هذا الدرس رح نتكلم عن الان اوبريتر  \n${reasoningLabel}: The speaker immediately introduces the \"IN operator\" as the main topic of the lesson right after the initial music.\n`;\n\n// Return the prompt for the Vertex AI node\nreturn [{\n  json: {\n    prompt: finalPrompt\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2992,
+        320
+      ],
+      "id": "0d7a612a-0305-4c11-836c-fc9bfbce6c9a",
+      "name": "Build Prompt Start time"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        416
+      ],
+      "id": "bec4aa40-28c2-49a9-87e9-caa998a4c3a2",
+      "name": "Telegram Trigger",
+      "webhookId": "f5aa70bb-f41e-45df-8f7e-7fc6ca4da36e",
+      "credentials": {
+        "telegramApi": {
+          "id": "RtJXkG8cH15t2b94",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "= ✅  Video received!  Choose your perspective  :  1️⃣  Classic CBK 2️⃣  Summary 3️⃣ dVideo start 4️⃣ Deep analysis, Reply with 1, 2, 3 or 4?",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1648,
+        224
+      ],
+      "id": "2ea88edf-c9d1-405e-9cec-f89da81a5bde",
+      "name": "Asking user for the choice",
+      "webhookId": "f2b547b8-9681-4afb-8369-3ede880cc305",
+      "credentials": {
+        "telegramApi": {
+          "id": "RtJXkG8cH15t2b94",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.content.parts[0].text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1648,
+        608
+      ],
+      "id": "acba5a52-fd33-404e-ad27-dd6ad97ce4a8",
+      "name": "Welcoming Message",
+      "webhookId": "f2b547b8-9681-4afb-8369-3ede880cc305",
+      "credentials": {
+        "telegramApi": {
+          "id": "RtJXkG8cH15t2b94",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        5392,
+        288
+      ],
+      "id": "f39454de-e7df-4e4e-af20-5e4763a4d6f2",
+      "name": "Send Final Message",
+      "webhookId": "f2b547b8-9681-4afb-8369-3ede880cc305",
+      "credentials": {
+        "telegramApi": {
+          "id": "RtJXkG8cH15t2b94",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Safe string truncation function\nfunction safeSubstring(value, maxLength) {\n  const str = String(value || '');\n  return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;\n}\n\nconst rows = $input.all();\nconst today = new Date().toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'});\n\nif (!rows || rows.length === 0) {\n  return [{\n    json: {\n      subject: `📊 Daily Report - ${today} - No Data`,\n      message: `<h2>📊 WhatsApp Bot Daily Report</h2><p>Date: ${today}</p><p><strong>No records found for today.</strong></p>`\n    }\n  }];\n}\n\n// ==================== ANALYTICS & SUMMARY ====================\nconst totalRecords = rows.length;\nconst roleStats = {};\nconst hourlyStats = {};\nconst urlStats = {};\nconst topDomains = {};\n\nrows.forEach(row => {\n  const data = row.json;\n  \n  // Role statistics\n  const role = data.User_Role || 'Unknown';\n  roleStats[role] = (roleStats[role] || 0) + 1;\n  \n  // Hourly activity (extract hour from time)\n  const timeStr = data.Time || '';\n  const hour = timeStr.split(':')[0] || 'Unknown';\n  hourlyStats[hour] = (hourlyStats[hour] || 0) + 1;\n  \n  // Domain analysis\n  const url = data.Vid_url || '';\n  if (url.includes('youtube.com') || url.includes('youtu.be')) {\n    topDomains['YouTube'] = (topDomains['YouTube'] || 0) + 1;\n  } else if (url.includes('tiktok.com')) {\n    topDomains['TikTok'] = (topDomains['TikTok'] || 0) + 1;\n  } else if (url) {\n    topDomains['Other'] = (topDomains['Other'] || 0) + 1;\n  }\n});\n\n// ==================== BUILD SUMMARY SECTION ====================\nlet summaryHtml = `\n<div style=\"background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;\">\n  <h2 style=\"color: #2c3e50;\">📊 Daily WhatsApp Bot Report</h2>\n  <p><strong>📅 Date:</strong> ${today}</p>\n  <p><strong>📈 Total Requests:</strong> ${totalRecords}</p>\n  \n  <div style=\"display: flex; gap: 20px; margin: 20px 0;\">\n    <div style=\"flex: 1;\">\n      <h3 style=\"color: #34495e;\">👥 User Roles</h3>\n      <ul>`;\n\nObject.entries(roleStats).forEach(([role, count]) => {\n  const percentage = ((count / totalRecords) * 100).toFixed(1);\n  summaryHtml += `<li><strong>${role}:</strong> ${count} (${percentage}%)</li>`;\n});\n\nsummaryHtml += `</ul></div><div style=\"flex: 1;\">\n      <h3 style=\"color: #34495e;\">🌐 Platform Usage</h3>\n      <ul>`;\n\nObject.entries(topDomains).forEach(([domain, count]) => {\n  const percentage = ((count / totalRecords) * 100).toFixed(1);\n  summaryHtml += `<li><strong>${domain}:</strong> ${count} (${percentage}%)</li>`;\n});\n\nsummaryHtml += `</ul></div></div>`;\n\n// Peak hours\nconst peakHour = Object.entries(hourlyStats).sort((a, b) => b[1] - a[1])[0];\nsummaryHtml += `\n  <p><strong>🕐 Peak Hour:</strong> ${peakHour ? `${peakHour[0]}:00 (${peakHour[1]} requests)` : 'N/A'}</p>\n</div>`;\n\n// ==================== HANDLE LARGE DATA SETS ====================\nconst MAX_ROWS_IN_EMAIL = 50; // Limit for email\nlet tableHtml = '';\nlet attachmentNote = '';\n\nif (totalRecords <= MAX_ROWS_IN_EMAIL) {\n  // Show full table\n  tableHtml = `\n  <h3>📋 Detailed Records</h3>\n  <table border=\"1\" style=\"border-collapse: collapse; width: 100%; font-size: 12px;\">\n    <tr style=\"background-color: #3498db; color: white;\">\n      <th style=\"padding: 8px;\">#</th>\n      <th style=\"padding: 8px;\">Video URL</th>\n      <th style=\"padding: 8px;\">Role</th>\n      <th style=\"padding: 8px;\">User ID</th>\n      <th style=\"padding: 8px;\">Time</th>      \n    </tr>`;\n\n  rows.forEach((row, index) => {\n    const data = row.json;\n    const shortUrl = (data.Vid_url || '').length > 30 \n      ? (data.Vid_url || '').substring(0, 30) + '...' \n      : (data.Vid_url || '');\n    \n    tableHtml += `\n    <tr style=\"background-color: ${index % 2 === 0 ? '#f9f9f9' : 'white'};\">\n      <td style=\"padding: 6px;\">${index + 1}</td>\n      <td style=\"padding: 6px;\">${shortUrl}</td>\n      <td style=\"padding: 6px;\">${data.User_Role || ''}</td>\n      <td style=\"padding: 6px;\">${safeSubstring(data.User_id, 15)}</td>\n      <td style=\"padding: 6px;\">${data.Time || ''}</td>\n    </tr>`;\n  });\n  tableHtml += '</table>';\n  \n} else {\n  // Show only first 50 rows + note\n  tableHtml = `\n  <h3>📋 Sample Records (Showing ${MAX_ROWS_IN_EMAIL} of ${totalRecords})</h3>\n  <table border=\"1\" style=\"border-collapse: collapse; width: 100%; font-size: 12px;\">\n    <tr style=\"background-color: #3498db; color: white;\">\n      <th style=\"padding: 8px;\">#</th>\n      <th style=\"padding: 8px;\">Video URL</th>\n      <th style=\"padding: 8px;\">Role</th>\n      <th style=\"padding: 8px;\">User ID</th>\n      <th style=\"padding: 8px;\">Time</th>      \n    </tr>`;\n\n  rows.slice(0, MAX_ROWS_IN_EMAIL).forEach((row, index) => {\n    const data = row.json;\n    const shortUrl = safeSubstring(data.Vid_url, 30);\n    \n    tableHtml += `\n    <tr style=\"background-color: ${index % 2 === 0 ? '#f9f9f9' : 'white'};\">\n      <td style=\"padding: 6px;\">${index + 1}</td>\n      <td style=\"padding: 6px;\">${shortUrl}</td>\n      <td style=\"padding: 6px;\">${data.User_Role || ''}</td>\n      <td style=\"padding: 6px;\">${String(data.User_id || '').substring(0, 15)}...</td>\n      <td style=\"padding: 6px;\">${data.Time || ''}</td>\n    </tr>`;\n  });\n  tableHtml += '</table>';\n  \n  attachmentNote = `\n  <div style=\"background-color: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px;\">\n    <strong>⚠️ Note:</strong> This report shows only the first ${MAX_ROWS_IN_EMAIL} records due to email size limits. \n    Total records: ${totalRecords}. Consider exporting full data directly from Google Sheets.\n  </div>`;\n}\n\n// ==================== FINAL REPORT ====================\nconst finalMessage = summaryHtml + tableHtml + attachmentNote;\n\nreturn [{\n  json: {\n    subject: `📊 Daily Bot Report - ${today} | ${totalRecords} requests | Peak: ${peakHour ? peakHour[0] + ':00' : 'N/A'}`,\n    message: finalMessage\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1088,
+        912
+      ],
+      "id": "e47299f9-ba3e-4e1a-b277-3fc37c52f21d",
+      "name": "Email Script"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "14dDFMAM22IQ1AN-Seu36t-ZAlyAesbWFIvswblDAjmE",
+          "mode": "list",
+          "cachedResultName": "History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14dDFMAM22IQ1AN-Seu36t-ZAlyAesbWFIvswblDAjmE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "الورقة1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14dDFMAM22IQ1AN-Seu36t-ZAlyAesbWFIvswblDAjmE/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Date",
+              "lookupValue": "={{ $now.format('D - M - Y') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        864,
+        912
+      ],
+      "id": "e0549cf4-2fc1-4ad1-8c1e-b4d07bcd18eb",
+      "name": "Get for Gmail",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mQajJyAqV0Ji0pDg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "3mkeljlad@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1312,
+        912
+      ],
+      "id": "ffb775fa-027c-4914-8ca2-7625ba62091c",
+      "name": "Send a report",
+      "webhookId": "ab0c6d15-5e28-4303-aa6e-5798e41c1d34",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "gLuotrqsZGPQDniF",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 21
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        640,
+        912
+      ],
+      "id": "f2041643-0afa-4de3-ae7e-e3f893ac5bba",
+      "name": "Schedule Daily Report"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $('Create a document1').item.json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $json.docMessage }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1984,
+        912
+      ],
+      "id": "9be3c94e-06a1-4ebc-b1e1-80b2273eddc4",
+      "name": "Update a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "923yHmU7r8Qdju2p",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the HTML message from the Email Script node\nconst htmlMessage = $('Email Script').first().json.message || '';\nconst subject = $('Email Script').first().json.subject || 'Daily Report';\n\n// Check if we have HTML content\nif (!htmlMessage) {\n  return [{\n    json: {\n      subject: subject,\n      emailMessage: 'No HTML content found',\n      docMessage: 'No content to convert'\n    }\n  }];\n}\n\n// Get the original data to rebuild the table properly\nconst rows = $('Get for Gmail').all(); // Get the Google Sheets data by node name\nconst today = new Date().toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'});\n\nif (!rows || rows.length === 0) {\n  return [{\n    json: {\n      subject: subject,\n      emailMessage: htmlMessage,\n      docMessage: `WHATSAPP BOT DAILY REPORT\\nDate: ${today}\\n\\nNo records found for today.`\n    }\n  }];\n}\n\n// ==================== REBUILD ANALYTICS ====================\nconst totalRecords = rows.length;\nconst roleStats = {};\nconst hourlyStats = {};\nconst topDomains = {};\n\nrows.forEach(row => {\n  const data = row.json;\n  \n  // Role statistics\n  const role = data.User_Role || 'Unknown';\n  roleStats[role] = (roleStats[role] || 0) + 1;\n  \n  // Hourly activity\n  const timeStr = data.Time || '';\n  const hour = timeStr.split(':')[0] || 'Unknown';\n  hourlyStats[hour] = (hourlyStats[hour] || 0) + 1;\n  \n  // Domain analysis\n  const url = data.Vid_url || '';\n  if (url.includes('youtube.com') || url.includes('youtu.be')) {\n    topDomains['YouTube'] = (topDomains['YouTube'] || 0) + 1;\n  } else if (url.includes('tiktok.com')) {\n    topDomains['TikTok'] = (topDomains['TikTok'] || 0) + 1;\n  } else if (url) {\n    topDomains['Other'] = (topDomains['Other'] || 0) + 1;\n  }\n});\n\nconst peakHour = Object.entries(hourlyStats).sort((a, b) => b[1] - a[1])[0];\n\n// ==================== BUILD GOOGLE DOCS CONTENT ====================\nlet docContent = `DAILY WHATSAPP BOT REPORT\n${'='.repeat(50)}\n\nDate: ${today}\nTotal Requests: ${totalRecords}\n\nUSER ROLES:\n${'-'.repeat(20)}`;\n\nObject.entries(roleStats).forEach(([role, count]) => {\n  const percentage = ((count / totalRecords) * 100).toFixed(1);\n  docContent += `\\n${role}: ${count} (${percentage}%)`;\n});\n\ndocContent += `\\n\\nPLATFORM USAGE:\n${'-'.repeat(20)}`;\n\nObject.entries(topDomains).forEach(([domain, count]) => {\n  const percentage = ((count / totalRecords) * 100).toFixed(1);\n  docContent += `\\n${domain}: ${count} (${percentage}%)`;\n});\n\ndocContent += `\\n\\nPeak Hour: ${peakHour ? `${peakHour[0]}:00 (${peakHour[1]} requests)` : 'N/A'}`;\n\n// ==================== BUILD TABLE DATA ====================\nconst MAX_ROWS = 50;\nconst displayRows = totalRecords <= MAX_ROWS ? rows : rows.slice(0, MAX_ROWS);\n\n// Create table structure for Google Docs\nconst tableData = [\n  ['#', 'Video URL', 'Role', 'User ID', 'Time'] // Header row\n];\n\ndisplayRows.forEach((row, index) => {\n  const data = row.json;\n  \n  // Create table row\n  tableData.push([\n    String(index + 1),\n    String(data.Vid_url || '').length > 40 \n      ? String(data.Vid_url || '').substring(0, 37) + '...' \n      : String(data.Vid_url || ''),\n    String(data.User_Role || ''),\n    String(data.User_id || '').length > 20\n      ? String(data.User_id || '').substring(0, 17) + '...'\n      : String(data.User_id || ''),\n    String(data.Time || '')\n  ]);\n});\n\n// Convert table data to Google Docs table format\nlet tableContent = '\\n\\nDETAILED RECORDS:\\n\\n';\n\n// Create the table in a format that Google Docs can understand\ntableData.forEach((rowData, rowIndex) => {\n  if (rowIndex === 0) {\n    // Header row\n    tableContent += rowData.join('\\t') + '\\n';\n    tableContent += rowData.map(() => '---').join('\\t') + '\\n';\n  } else {\n    // Data rows\n    tableContent += rowData.join('\\t') + '\\n';\n  }\n});\n\nif (totalRecords > MAX_ROWS) {\n  tableContent += `\\nNote: This report shows only the first ${MAX_ROWS} records due to size limits.\\nTotal records: ${totalRecords}. View full data in Google Sheets.`;\n}\n\nconst finalDocContent = docContent + tableContent;\n\nreturn [{\n  json: {\n    subject: subject,\n    emailMessage: htmlMessage,\n    docMessage: finalDocContent,\n    tableData: tableData // This can be used if Google Docs API supports direct table insertion\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        912
+      ],
+      "id": "59fb1bcc-61e6-4ba3-b49b-39b155a14fc5",
+      "name": "Convert HTML to Plain Text Table"
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst year = now.getFullYear();\nconst month = now.toLocaleDateString('en-GB', { month: 'long' }); // \"September\"\nconst today = now.toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'});\n\n// Get the document ID from previous node\nconst docId = $('Create a document1').first().json.id;\n\nreturn [{\n  json: {\n    // Folder paths\n    rootFolder: 'WhatsApp Bot Reports',\n    yearFolder: year.toString(),\n    monthFolder: month,\n    \n    // Full paths for folder creation\n    yearPath: `WhatsApp Bot Reports/${year}`,\n    monthPath: `WhatsApp Bot Reports/${year}/${month}`,\n    dailyReportsPath: `WhatsApp Bot Reports/${year}/${month}/Daily Reports`,\n    \n    // Document info\n    documentId: docId,\n    fileName: `Daily Bot Report - ${today}`,\n    \n    // For organization\n    currentYear: year,\n    currentMonth: month,\n    formattedDate: today\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2208,
+        912
+      ],
+      "id": "81cfb4fd-7cc3-46bb-8565-4aeb59e200f4",
+      "name": "Generate Folder Structure"
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "name": "={{ $('Generate Folder Structure').item.json.monthFolder }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "folderColorRgb": "#3D8C05"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        864,
+        1136
+      ],
+      "id": "5beb8c5b-3378-4816-ac4f-19e7c25c99d9",
+      "name": "Create Month Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "7KiKdvYrThM1S7TM",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "name": "={{ $('Generate Folder Structure').item.json.fileName }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "folderColorRgb": "#CC9B1E"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2432,
+        912
+      ],
+      "id": "8a7671c8-0ce4-4e6f-854c-2597c157e6a9",
+      "name": "Create Daily Reports Subfolder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "7KiKdvYrThM1S7TM",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtHour": 21
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        640,
+        1136
+      ],
+      "id": "2dd44702-94d4-4c6b-8978-e31b1ccf298f",
+      "name": "Schedule Monthly Report"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        5040,
+        576
+      ],
+      "id": "7cc6cc39-fca8-480a-8f4e-2565461c6110",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        5120,
+        800
+      ],
+      "id": "c82d6a52-c757-4c9e-9465-e745fb9a5491",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nJdsKAnaumBmpPWy",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $node[\"collect data\"].json;\nconst thumbnails = item?.snippet?.thumbnails || {};\nconst thumbnail_url =\n  thumbnails.maxres?.url ||\n  thumbnails.standard?.url ||\n  thumbnails.high?.url ||\n  thumbnails.medium?.url ||\n  thumbnails.default?.url ||\n  item.thumbnail_url ||\n  null;\n\n// 🔹 دالة لاختصار الأرقام\nfunction shortNum(v) {\n  const num = Number(v);\n  if (isNaN(num)) return null;\n  if (num >= 1_000_000) return Math.round(num / 1_000_000) + \" مليون\";\n  if (num >= 1_000) return Math.round(num / 1_000) + \" ألف\";\n  return Math.round(num).toString();\n}\n\n// 🔹 دالة لطباعة السطر فقط إذا القيمة موجودة\nfunction lineIf(label, value) {\n  if (!value || value === \"Unknown\" || value === \"غير معروف\") return \"\";\n  return `- ${label}: ${value}\\n`;\n}\n\nconst views    = shortNum(item.views);\nconst likes    = shortNum(item.likes);\nconst subs     = shortNum(item.subs);\nconst comments = shortNum(item.comments);\nconst ratio    = item.ratio_percent ? Math.round(item.ratio_percent) : null;\nconst minutes  = item.duration_min ? Math.round(item.duration_min) : null;\n\n// نبني بلوك الإحصائيات\nconst statsBlock =\n  lineIf(\"المشاهدات\", views) +\n  lineIf(\"الإعجابات\", likes) +\n  lineIf(\"نسبة الإعجابات/المشاهدات\", ratio ? ratio + \"%\" : null) +\n  lineIf(\"التعليقات\", comments) +\n  lineIf(\"المدة\", minutes ? minutes + \" دقيقة\" : null) +\n  lineIf(\"المشتركين\", subs);\n\n\n// 🔹 اجلب النص التفريغي (أول 1000 حرف فقط حتى ما يصير ضخم)\nconst transcript = ($input.first().json.output || \"\").toString().slice(0, 1000);\n\nconst prompt = `\nأنت محلل محتوى يوتيوب. مهمتك أن تقارن **العنوان** مع **النص التفريغي** للفيديو وتحدد إذا كان العنوان:\n- متوافق تمامًا مع المحتوى ✅\n- مبالغ قليلًا 🟡\n- مضلل بشكل واضح ❌  \n\n🔹 أخرج النتيجة بلغة الفيديو (نفس لغة العنوان/التفريغ).\n🔹 الرد قصير ومنظّم (≤ 200 كلمة).\n🔹 استخدم تنسيق يناسب الواتساب\n🔹 أعطِ \"Score\" للتوافق (0–100).\n🔹 اضف رابط الثامبينل في البداية (الرابط فقط)\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n\n${thumbnail_url ? `![Thumbnail](${thumbnail_url})\\n` : \"\"}\n\n**العنوان:** ${item.title_clean ?? item.title_raw ?? \"Unknown\"}  \n\n🏷️ **التصنيف:** <أخضر/أصفر/أحمر + الإيموجي> (Clickbait Score: XX%)  \n\n📝 **السبب:** <سطر واحد مختصر يوضح إذا العنوان مطابق/مبالغ/مضلل>  \n\n\n ${transcript??'unKnown'}\n📝 **السبب:** <سطر واحد يوضح درجة التوافق>  \n\n---\n\n📊 **أرقام سريعة:**  \n${statsBlock}\n\n---\nScore: \n\n📌 **نسبة التضليل:** XX%  \n📌 **التقييم النهائي:** <متوافق/غير متوافق> — <أنصح به/ابحث عن بديل>  \n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`.trim();\n\nreturn [{\n  json: { prompt }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4816,
+        576
+      ],
+      "id": "6a094eb5-b3d9-49aa-b0bf-53c054eed429",
+      "name": "Ar Prompt"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---------- helpers ----------\nfunction fromNode(name) {\n  try {\n    const node = $(name).first();\n    if (!node) return null;\n\n    const json = node.json;\n    \n    // Return the full JSON if it contains items\n    if (json?.items) return json;\n\n    // Else if it's a full HTTP response structure\n    if (json?.body?.items) return json.body;\n\n    return null;\n  } catch (err) {\n    return null;\n  }\n}\nfunction getFirstItem(bodyOrRoot) {\n  const src = bodyOrRoot || {};\n  const items = Array.isArray(src.items) ? src.items : [];\n  return items[0] ?? null;\n}\n\n// ---------- fetch sources ----------\nconst ytBody = fromNode('YouTube Data API v3') || fromNode('YouTube Data API v1');\nconst chBody = fromNode('YouTube Channel API');   // اختياري    // اختياري\nconst video = getFirstItem(ytBody);\n\nif (!video) {\n  return [{\n    json: {\n      error: true,\n      message: 'No video items found from \"YouTube Data API v3\". Check node name and parts.',\n      debug: {\n        hasYtBody: !!ytBody,\n        topKeys: ytBody ? Object.keys(ytBody) : [],\n      }\n    }\n  }];\n}\n\nconst channel = getFirstItem(chBody);\n\n// ---------- safe values ----------\nconst thumbs = video?.snippet?.thumbnails || {};\nconst thumbSet = {\n  default:  thumbs.default?.url  || null,\n  medium:   thumbs.medium?.url   || null,\n  high:     thumbs.high?.url     || null,\n};\n// --- 2) اختر أفضل صورة متاحة (أولوية من الأكبر للأصغر) ---\nlet thumbnail_url =\n  thumbSet.high     || \n  thumbSet.medium   || \n  thumbSet.default  || null;\nif (!thumbnail_url ) {\n  // hqdefault خيار آمن وجيد الدقة\n  thumbnail_url = `https://i.ytimg.com/vi/${$('YouTube Data API v3').first().json.body.items[0].id}/hqdefault.jpg`;\n}\n\n\nconst title_raw    = video.snippet?.title ?? 'Unknown title';\nconst publishedAt  = video.snippet?.publishedAt ?? \"Unknown\";\n// خليها سترنج \"Unknown\" إذا مش متوفرة\nconst views        = video.statistics?.viewCount !== undefined \n  ? Number(video.statistics.viewCount) \n  : \"Unknown\";\nconst likes        = video.statistics?.likeCount !== undefined \n  ? Number(video.statistics.likeCount) \n  : \"Unknown\";\nconst comments     = video.statistics?.commentCount !== undefined \n  ? Number(video.statistics.commentCount) \n  : \"Unknown\";\nconst duration_iso = video.contentDetails?.duration ?? \"Unknown\";\nconst category_id  = video.snippet?.categoryId ?? \"Unknown\";\nconst subs         = channel?.statistics?.subscriberCount !== undefined \n  ? Number(channel.statistics.subscriberCount) \n  : \"Unknown\";\n\n// ---------- ratios & durations ----------\n// Helpers\nconst numOrNull = v => (typeof v === 'number' && !Number.isNaN(v)) ? v : null;\n\n// قيَم رقمية (قد تكون Unknown من المرحلة السابقة)\nconst V = numOrNull(views);\nconst L = numOrNull(likes);\nconst C = numOrNull(comments);\n\n// نسب التفاعل: احسب فقط إذا الأرقام صالحة\nconst ratio_percent = (V !== null && V > 0 && L !== null)\n  ? ((L / V) * 100).toFixed(2)\n  : \"Unknown\";\n\nconst comment_to_view_percent = (V !== null && V > 0 && C !== null)\n  ? ((C / V) * 100).toFixed(3)\n  : \"Unknown\";\n\n// المدة: isoToSec لازم ترجع null لو المدخل \"Unknown\" أو غير صالح\nfunction isoToSecSafe(iso) {\n  if (!iso || typeof iso !== 'string' || iso === 'Unknown') return null;\n  const m = /PT(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+)S)?/.exec(iso);\n  if (!m) return null;\n  return (Number(m[1]||0)*3600) + (Number(m[2]||0)*60) + Number(m[3]||0);\n}\n\nconst duration_sec_raw = isoToSecSafe(duration_iso);\nconst duration_min = (duration_sec_raw !== null) ? (duration_sec_raw / 60).toFixed(1) : \"Unknown\";\n\n// العمر بالأيام: daysBetween يرجّع null لو التاريخ غير صالح\nfunction daysBetweenSafe(isoDate) {\n  if (!isoDate || isoDate === 'Unknown') return null;\n  const t = Date.parse(isoDate);\n  if (Number.isNaN(t)) return null;\n  return Math.max(0, Math.round((Date.now() - t) / 86400000));\n}\n\nconst age_days_raw = daysBetweenSafe(publishedAt);\nconst age_days = (age_days_raw !== null) ? age_days_raw : \"Unknown\";\n\n// ---------- clean title ----------\nconst title_clean = title_raw\n  .normalize('NFKC')\n  // أزل الإيموجي/الصور الرمزية الحديثة:\n  .replace(/\\p{Extended_Pictographic}/gu, '')\n  // أزل محارف خفيّة شائعة (ZWSP/ZWJ/VS-16):\n  .replace(/[\\u200B-\\u200D\\uFE0F\\uFEFF]/g, '')\n  // رموز زخرفية شائعة:\n  .replace(/[✦★☆✧•┃│❗️‼️⚠️🔥💥✨💯✅✔️➤→←↑↓【】\\[\\]（）(){}<>]/g, '')\n  // مسافات مكررة:\n  .replace(/\\s{2,}/g, ' ')\n  .trim();\n\n\n\n// ---------- optional category mapping ----------\nconst categories = {\n  \"1\":\"Film & Animation\",\"2\":\"Autos & Vehicles\",\"10\":\"Music\",\"15\":\"Pets & Animals\",\"17\":\"Sports\",\n  \"18\":\"Short Movies\",\"19\":\"Travel & Events\",\"20\":\"Gaming\",\"21\":\"Videoblogging\",\"22\":\"People & Blogs\",\n  \"23\":\"Comedy\",\"24\":\"Entertainment\",\"25\":\"News & Politics\",\"26\":\"Howto & Style\",\"27\":\"Education\",\n  \"28\":\"Science & Technology\",\"29\":\"Nonprofits & Activism\",\"30\":\"Movies\",\"31\":\"Anime/Animation\",\n  \"32\":\"Action/Adventure\",\"33\":\"Classics\",\"34\":\"Documentary\",\"35\":\"Drama\",\"36\":\"Family\",\"37\":\"Foreign\",\n  \"38\":\"Horror\",\"39\":\"Sci-Fi/Fantasy\",\"40\":\"Thriller\",\"41\":\"Shorts\",\"42\":\"Shows\",\"43\":\"Trailers\"\n};\nconst category_name = categories[category_id] || 'Unknown';\n\n// ---------- return normalized data ----------\nreturn [{\n  json: {\n    title_raw,\n    title_clean,\n    published_at: publishedAt,\n    age_days,\n    views,\n    likes,\n    subs,\n    comments,\n    ratio_percent,                 // like/view %\n    comment_to_view_percent,       // comment/view %\n    duration_min,\n    category_name,    \n    thumbnail_url// debug            // debug\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2992,
+        576
+      ],
+      "id": "8cc755a8-b50b-481f-89cb-7579d94c4060",
+      "name": "collect data"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://aiplatform.googleapis.com/v1/projects/thermal-highway-472021-q5/locations/us-central1/publishers/google/models/gemini-2.0-flash:generateContent",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Bearer ' + $node[\"Get Token\"].json[\"access_token\"] }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4016,
+        576
+      ],
+      "id": "2db155f7-4f47-43d1-b4c0-70899f8bacf6",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Vertex raw response → robust JSON-or-text → ordered → prompt\n\n// 1) جلب النص بأمان\nconst nodeJson = $input.first()?.json ?? {};\nconst candidates = nodeJson.candidates ?? [];\nconst parts = candidates[0]?.content?.parts ?? [];\nconst raw = parts[0]?.text ?? nodeJson.text ?? nodeJson.output ?? \"\";\n\n// 2) أدوات مساعدة\nfunction tryParseJson(str) {\n  if (typeof str !== \"string\") return null;\n  const s = str.trim();\n\n  // أ) جرّب مباشرة\n  try { return JSON.parse(s); } catch (_) {}\n\n  // ب) شيل code fences إن وجدت\n  const fence = s.replace(/^```(?:json)?\\s*/i, \"\").replace(/```$/i, \"\").trim();\n  if (fence !== s) {\n    try { return JSON.parse(fence); } catch (_) {}\n  }\n\n  // ج) حاول اقتناص أول كتلة JSON {...} أو [...]\n  const m = s.match(/(\\{[\\s\\S]*\\}|\\[[\\s\\S]*\\])/);\n  if (m) {\n    try { return JSON.parse(m[1]); } catch (_) {}\n  }\n\n  return null;\n}\n\nfunction orderObjectKeys(obj) {\n  if (Array.isArray(obj)) return obj; // خليه كما هو\n  if (obj && typeof obj === \"object\") {\n    const out = {};\n    Object.keys(obj).sort().forEach(k => { out[k] = obj[k]; });\n    return out;\n  }\n  return obj;\n}\n\n// 3) حاول قراءة JSON وإلا استخدم النص كما هو\nlet parsed = tryParseJson(raw);\nlet prettyBlock = \"\";\n\nif (parsed !== null) {\n  const ordered = orderObjectKeys(parsed);\n  prettyBlock = JSON.stringify(ordered, null, 2);\n} else {\n  // ما في JSON صالح، استخدم النص الخام\n  // (نضمّنه كما هو داخل الباك-تيكس، ما في حاجة نهرب علامات)\n  prettyBlock = raw.toString();\n}\n\n// 4) بناء البرومبت النهائي\nconst prompt = `أعد صياغة النص التالي في صورة ملخّص منظّم وواضح:\n- استخرج أهم الأفكار الرئيسة.\n- رتّبها في نقاط أو فقرات قصيرة.\n- أعطني \"Score\" للمصداقية مع سبب مختصر (0–100).\n- استخرج البيانات المهمّة (أسماء، تواريخ، أرقام، ادعاءات قابلة للتحقق).\n- احذف التكرار والتفاصيل الثانوية.\n- اجعل اللغة سهلة ومباشرة.\n\nالنص:\n${prettyBlock}\n`;\n\n// 5) الإرجاع\nreturn [{\n  json: {\n    prompt,\n    meta: {\n      parsedAsJson: parsed !== null,\n      length: typeof raw === \"string\" ? raw.length : null\n    }\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4240,
+        576
+      ],
+      "id": "fde97bfb-d5ce-4ce9-bf4b-0445eedf535a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://oauth2.googleapis.com/token",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"grant_type\": \"urn:ietf:params:oauth:grant-type:jwt-bearer\",\n  \"assertion\": \"{{$node['Build JWT'].json['assertion_jwt']}}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3568,
+        576
+      ],
+      "id": "d3429a05-06d4-4865-b7bd-2e4fa8882611",
+      "name": "Get Token"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Function node\n// يبني assertion (JWT) باستخدام مفاتيح Service Account لتبادلها مع Google Token endpoint\nconst SA = {\n  client_email: \"vertex-n8n-bot@thermal-highway-472021-q5.iam.gserviceaccount.com\",\n  private_key:\"-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDSeytjioTAe6hf\\nRIQ7d0jN1oWBS2Jj7tTR5TYHgzg4fGTDbgKAcXHlvVAQTx1X7f5A3rGeH/+P6sXE\\nYFbSpEuMi2L3l5CZXUaeFFqT50hLx2uQmrH15V1/eq77Y1RlDVPAF3D7/sopr8G4\\nUsYxTvrYPyafdIZt1UAijYGRTLkiDDKaisAT66ItH6fOwjf54lcdwGbMUOz3Zucb\\nSh9DIVcG2eB6RX2ktllDVoq06JuKSi4bPkyMyZ3bM/TlMDRsSX1pbNeYYzBTTDgT\\nqvHvlpGk9ezdnug+4PON7VG9DkwnNWPyrNUIrXIcaCYBXdDuvN9JrnJBbv3o5pU8\\nAgsUDdBPAgMBAAECggEABplN9u+ffIQOofin8fqqEan+wtr2Lrk3euJ7cH4wrl9Y\\nBA3YOOaq8iTz9E7xVecO6EG9wn4GU8tsf9z1W+KYFm6YSmLkvv9++J3IE92rFT/J\\n+N1LZFuDND1IbHaPbXZJgJA7k+ryXkmLAphga6iqPKAI5J7mnV2ThoHL5Mj0VO42\\nZLW+l9YaWhPo+nQ+lzrafeDhs2YnRPO2JQa2hIBceS6/PiMY8iWRggRgcboYQ7Uv\\nQc/tQkRZZ/0IEPwHx6Fguln8wk2n0WQjWTCUqC05RY3VEgF3He4E1pMxPB7BIrq+\\n8NLEU3BiK5jZ7t8i2fXITTf7BN1oZsLHuCBw/HPgIQKBgQD0lpQmYtxhRguKRKYw\\n3ixtXl3B5DC+btXRfeCAIHnVEj45UPWfgdkBLIBNwe02uBIlXLK7Oo43RIDUbTWQ\\nuovyuFTEPoA3KumeX4qmJ2P4LRgmM4a9p/nkiqxbWGyq8LiJiVSQkmop6oI/cIYi\\nSo4spo0Pdixl798wZO1GCiF+awKBgQDcTTUmiRpHBtvqk5epUAbEnD6ls9Bw7d1I\\nW4UW2AmRC/Z4iTURz/yeaX+2SovXY7sSAZh5n8dRx+bJAFs6vrhY40IM1gOaFh3l\\n9MIJ5tzdO9ci4m1qSoJfrQfWv6tw2fhoq0AJNmHQljGhKOFvYH197wPJMDYkfoeq\\nlUZ4AtamrQKBgF6OOAf/ACO66IszruwFeDdv298xUIbOYmrytu/Rnkf5HYUa/1oC\\n4NnLUm69Ie+diaZYB+DJ6mEDYqq87ZBeDexvxpV3dCnftSE83mUNpWA0Trm2Ackg\\nP0NTOP63WItdNHo3VTHu6Iv71Q6hebmYCQ7J9I6dqNxft3EGE5SYJgqxAoGAcsm3\\n/BBMJN4qEJw+1fXg0Okoq2Z6IZ2PQ3iMbE69DVrSXhQAFvvsgQ4vgWhuXRiWDNfP\\n/u+GB9LFKc6Jup5Np+MiM1YAInWLtppF0Kr+Qjg/7OlWYZ/ZNskN4JOWXQL2MHOq\\ntiIj7W+VBIgsjsAUI1469sWsMG/NeNC3Gyk/dzECgYEAyXVugEoFzff2z4hDTZ79\\nFpeIwtGknj3+ud5OhpiVyRNJcyXvXUVs2PXGWbfK3HlV3AtyqY9UrrCoSiWesXZh\\nPnQ0MIEAk9Qjh6ncLESYyHSMagszouKwDB5OsQe/Bd1iSfWsDhvNVKqh6gVPA253\\nTMRiv1NkpIf73qUcxEBnJpM=\\n-----END PRIVATE KEY-----\\n\",\n  project_id: \"thermal-highway-472021-q5\",\n  scope: 'https://www.googleapis.com/auth/cloud-platform', // وسّع/قلّص حسب الحاجة\n  token_aud: 'https://oauth2.googleapis.com/token',\n  token_ttl_sec: 3600, // صلاحية JWT = 1 ساعة\n};\n\nfunction base64url(input) {\n  return Buffer.from(input)\n    .toString('base64')\n    .replace(/=/g, '')\n    .replace(/\\+/g, '-')\n    .replace(/\\//g, '_');\n}\n\nconst header = { alg: 'RS256', typ: 'JWT' };\nconst now = Math.floor(Date.now() / 1000);\nconst claim = {\n  iss: SA.client_email,\n  scope: SA.scope,\n  aud: SA.token_aud,\n  iat: now,\n  exp: now + SA.token_ttl_sec,\n  // ملاحظة: لا تضف sub إلا في حالات domain-wide delegation مع حساب مستخدم\n};\n\nconst encodedHeader = base64url(JSON.stringify(header));\nconst encodedClaim = base64url(JSON.stringify(claim));\nconst signingInput = `${encodedHeader}.${encodedClaim}`;\n\nconst crypto = require('crypto');\nconst signature = crypto\n  .createSign('RSA-SHA256')\n  .update(signingInput)\n  .sign(SA.private_key);\n\nconst jwt = `${signingInput}.${base64url(signature)}`;\n\nreturn [\n  {\n    json: {\n      assertion_jwt: jwt,\n      project_id: SA.project_id,\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3280,
+        576
+      ],
+      "id": "1d97595f-d508-48be-ad61-67a8f773d98f",
+      "name": "Build JWT"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.prompt }}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        4464,
+        576
+      ],
+      "id": "f0f5505d-9450-48a7-b2a6-9fae1135fa12",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        4544,
+        800
+      ],
+      "id": "4e3e3c82-4569-424f-a01a-6d6f2c6ea506",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nJdsKAnaumBmpPWy",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "Problem in the Transcript API ",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2544,
+        416
+      ],
+      "id": "3b2cc37b-04dd-40fc-9ada-2d5012c351a4",
+      "name": "Problem in the Transcript API",
+      "webhookId": "f2b547b8-9681-4afb-8369-3ede880cc305",
+      "credentials": {
+        "telegramApi": {
+          "id": "RtJXkG8cH15t2b94",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "Problem in the Youtube v3 API",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2096,
+        512
+      ],
+      "id": "691fb7ab-6ee6-42ea-bdcb-0ccdca7b5c68",
+      "name": "Problem in the Youtube v3 API",
+      "webhookId": "f2b547b8-9681-4afb-8369-3ede880cc305",
+      "credentials": {
+        "telegramApi": {
+          "id": "RtJXkG8cH15t2b94",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---------- helpers ----------\nfunction fromNode(name) {\n  try {\n    const arr = $items(name);\n    if (!arr || !arr.length) return null;\n    const j = arr[0].json;\n    return j?.body ?? j ?? null;\n  } catch {\n    return null;\n  }\n}\nfunction getFirstItem(bodyOrRoot) {\n  const src = bodyOrRoot || {};\n  const items = Array.isArray(src.items) ? src.items : [];\n  return items[0] ?? null;\n}\n\n// ---------- fetch sources ----------\nconst ytBody = fromNode('YouTube Data API v3') || fromNode('YouTube Data API v1');\nconst chBody = fromNode('YouTube Channel API'); // optional\nconst video  = getFirstItem(ytBody);\n\nif (!video) {\n  return [{ json: { error: true, message: 'No video items found. Check node name and \"part\" fields.' } }];\n}\n\nconst channel = getFirstItem(chBody);\n\n// ---------- safe values ----------\nconst thumbs = video?.snippet?.thumbnails || {};\nconst thumbSet = {\n  default: thumbs.default?.url || null,\n  medium:  thumbs.medium?.url  || null,\n  high:    thumbs.high?.url    || null,\n};\nlet thumbnail_url =\n  thumbSet.high   ||\n  thumbSet.medium ||\n  thumbSet.default ||\n  `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;\n\nconst title_raw    = video.snippet?.title ?? 'Unknown title';\nconst publishedAt  = video.snippet?.publishedAt ?? \"Unknown\";\nconst views        = video.statistics?.viewCount !== undefined ? Number(video.statistics.viewCount) : \"Unknown\";\nconst likes        = video.statistics?.likeCount !== undefined ? Number(video.statistics.likeCount) : \"Unknown\";\nconst comments     = video.statistics?.commentCount !== undefined ? Number(video.statistics.commentCount) : \"Unknown\";\nconst duration_iso = video.contentDetails?.duration ?? \"Unknown\";\nconst category_id  = video.snippet?.categoryId ?? \"Unknown\";\nconst subs         = channel?.statistics?.subscriberCount !== undefined ? Number(channel.statistics.subscriberCount) : \"Unknown\";\n\n// ---------- ratios & durations ----------\nfunction isoToSecSafe(iso) {\n  if (!iso || typeof iso !== 'string' || iso === 'Unknown') return null;\n  const m = /PT(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+)S)?/.exec(iso);\n  if (!m) return null;\n  return (Number(m[1]||0)*3600) + (Number(m[2]||0)*60) + Number(m[3]||0);\n}\nconst duration_sec_raw = isoToSecSafe(duration_iso);\nconst duration_min = duration_sec_raw !== null ? (duration_sec_raw / 60).toFixed(1) : \"Unknown\";\n\nfunction daysBetweenSafe(isoDate) {\n  if (!isoDate || isoDate === 'Unknown') return null;\n  const t = Date.parse(isoDate);\n  if (Number.isNaN(t)) return null;\n  return Math.max(0, Math.round((Date.now() - t) / 86400000));\n}\nconst age_days = daysBetweenSafe(publishedAt) ?? \"Unknown\";\n\nconst numOrNull = v => (typeof v === 'number' && !Number.isNaN(v)) ? v : null;\nconst V = numOrNull(views);\nconst L = numOrNull(likes);\nconst C = numOrNull(comments);\nconst ratio_percent = (V && L) ? ((L / V) * 100).toFixed(2) : \"Unknown\";\nconst comment_to_view_percent = (V && C) ? ((C / V) * 100).toFixed(3) : \"Unknown\";\n\n// ---------- clean title ----------\nconst title_clean = title_raw\n  .normalize('NFKC')\n  .replace(/\\p{Extended_Pictographic}/gu, '')\n  .replace(/[\\u200B-\\u200D\\uFE0F\\uFEFF]/g, '')\n  .replace(/[✦★☆✧•┃│❗️‼️⚠️🔥💥✨💯✅✔️➤→←↑↓【】\\[\\]（）(){}<>]/g, '')\n  .replace(/\\s{2,}/g, ' ')\n  .trim();\n\n// ---------- category ----------\nconst categories = {\n  \"1\":\"Film & Animation\",\"2\":\"Autos & Vehicles\",\"10\":\"Music\",\"15\":\"Pets & Animals\",\"17\":\"Sports\",\n  \"18\":\"Short Movies\",\"19\":\"Travel & Events\",\"20\":\"Gaming\",\"21\":\"Videoblogging\",\"22\":\"People & Blogs\",\n  \"23\":\"Comedy\",\"24\":\"Entertainment\",\"25\":\"News & Politics\",\"26\":\"Howto & Style\",\"27\":\"Education\",\n  \"28\":\"Science & Technology\",\"29\":\"Nonprofits & Activism\",\"30\":\"Movies\",\"31\":\"Anime/Animation\",\n  \"32\":\"Action/Adventure\",\"33\":\"Classics\",\"34\":\"Documentary\",\"35\":\"Drama\",\"36\":\"Family\",\"37\":\"Foreign\",\n  \"38\":\"Horror\",\"39\":\"Sci-Fi/Fantasy\",\"40\":\"Thriller\",\"41\":\"Shorts\",\"42\":\"Shows\",\"43\":\"Trailers\"\n};\nconst category_name = categories[category_id] || 'Unknown';\n\n// ---------- build text ----------\nconst promptText = `\n📌 Video Details\n• Title: ${title_clean}\n• Original Title: ${title_raw}\n• Published: ${publishedAt} (${age_days} days ago)\n• Duration: ${duration_min} minutes\n• Views: ${views}\n• Likes: ${likes} (${ratio_percent}% of views)\n• Comments: ${comments} (${comment_to_view_percent}% of views)\n• Subscribers: ${subs}\n• Category: ${category_name}\n• Thumbnail: ${thumbnail_url}\n`.trim();\n\n// ---------- return Vertex-ready JSON ----------\nreturn [\n  {\n    json: {\n      contents: [\n        {\n          role: \"user\",\n          parts: [\n            {\n              text: promptText\n            }\n          ]\n        }\n      ]\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3792,
+        576
+      ],
+      "id": "76a95b5d-a491-4fc4-97a7-249efbc3741c",
+      "name": "DeepPrompt"
+    },
+    {
+      "parameters": {
+        "jsCode": "const userPhone = $input.first().json.message.from.id;\nconst messageBody = $input.first().json.message.text;\nconst hasURL = messageBody.includes('http') || messageBody.includes('youtube.com');\nconst isChoice = /^[1-4]$/.test(messageBody.trim());\n\nlet messageType;\n\nif (hasURL) {\n    messageType = \"new_url\";\n} else if (isChoice) {\n    messageType = \"user_choice\";\n} else {\n    messageType = \"no_link\";\n}\n\nreturn [{\n    json: {\n        ...$input.first().json,\n        messageType: messageType,\n        userChoice: isChoice ? messageBody : null\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        416
+      ],
+      "id": "fcf67640-800a-465a-84a0-b6c795a54acb",
+      "name": "Determine Message Type"
+    },
+    {
+      "parameters": {
+        "jsCode": "const url = $input.first().json.record.user_.savedUrl || \"\";\n\n// regex to extract YouTube video ID (11 characters)\nconst regex = /(?:[?&]v=|youtu\\.be\\/|\\/embed\\/)([a-zA-Z0-9_-]{11})/;\nconst match = url.match(regex);\n\nif (!match) {\n  throw new Error(`No YouTube video ID found in: ${url}`);\n}\n\nconst id = match[1];\n\n// IMPORTANT: wrap inside { json: { ... } }\nreturn [\n  {\n    json: {\n      id,            // use {{$json.id}} in the next node\n      video_id: id,  // or {{$json.video_id}} if you prefer\n    },\n  },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1648,
+        416
+      ],
+      "id": "da8e9c81-303f-47b8-8042-af039466cb3d",
+      "name": "Extract video ID"
+    },
+    {
+      "parameters": {
+        "url": "https://www.googleapis.com/youtube/v3/videos",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "part",
+              "value": "snippet,statistics"
+            },
+            {
+              "name": "key",
+              "value": "AIzaSyAQvfhJbC8btssN5uRd8sRcqnarSxQr2tQ"
+            },
+            {
+              "name": "id",
+              "value": "={{ $('Extract video ID').item.json.video_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1872,
+        416
+      ],
+      "id": "3e8a292d-5ee4-42be-8f67-48aeba80404a",
+      "name": "YouTube Data API v3",
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "=The video with the Title: {{ $json.items[0].snippet.title }} and the type {{ $('Telegram Trigger').item.json.message.text }},\nIs being processed ",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2096,
+        320
+      ],
+      "id": "c0459af3-0389-4ece-9f2d-1c9c2b4c5221",
+      "name": "Send a confirmation message",
+      "webhookId": "f2b547b8-9681-4afb-8369-3ede880cc305",
+      "credentials": {
+        "telegramApi": {
+          "id": "RtJXkG8cH15t2b94",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first();\nconst transcriptArray = input?.json?.subtitles || [];\n\n// دمج النصوص من subtitles\nlet transcript = transcriptArray.length > 0\n  ? transcriptArray.map(t => t.text).join(\" \")\n  : \"\";\n\nif (typeof transcript !== \"string\") {\n  transcript = String(transcript ?? \"\");\n}\n\nconst duration_min = Number(input?.json?.duration_min ?? 0);\nlet finalTranscript = transcript;\n\nif (duration_min > 5) {\n  // حدد الحد الأقصى حسب طول الفيديو\n  let maxLen, take;\n  if (duration_min <= 10) {\n    maxLen = 2500;\n    take = 1250;   // 1500 من البداية + 1500 من النهاية\n  } else if (duration_min <= 60) {\n    maxLen = 4000;\n    take = 2000;\n  } else {\n    maxLen = 4500; // فيديوهات طويلة جدًا\n    take = 2250;\n  }\n\n  // قص فقط إذا النص أطول من maxLen\n  if (transcript.length > maxLen) {\n    const start = transcript.slice(0, take);\n    const end = transcript.slice(-take);\n    finalTranscript = start + \" … \" + end;\n  }\n}\n\n// رجع النص النهائي\nreturn [{ transcriptText: finalTranscript }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2544,
+        224
+      ],
+      "id": "cc3301f8-dbf8-4f95-8437-faf00d47361f",
+      "name": "Merge transcript"
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Update a document').item.json.documentId }}",
+          "mode": "id"
+        },
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2656,
+        912
+      ],
+      "id": "92b46c9e-62c9-484c-8e32-f5280f5e9e2c",
+      "name": "Move Document to Folder1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "7KiKdvYrThM1S7TM",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "fileId": {
+          "__rl": true,
+          "value": "14dDFMAM22IQ1AN-Seu36t-ZAlyAesbWFIvswblDAjmE",
+          "mode": "list",
+          "cachedResultName": "History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14dDFMAM22IQ1AN-Seu36t-ZAlyAesbWFIvswblDAjmE/edit?usp=drivesdk"
+        },
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1k70KBsLtJmmWRkSY5sdtkVMo2ifBkunC",
+          "mode": "list",
+          "cachedResultName": "CBK - Files",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1k70KBsLtJmmWRkSY5sdtkVMo2ifBkunC"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        5840,
+        288
+      ],
+      "id": "f9ae8f5e-f26d-418e-868f-7d570d9ad165",
+      "name": "Move Document to Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "7KiKdvYrThM1S7TM",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "folderId": "default",
+        "title": "={{ $('Email Script').item.json.subject }}"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1536,
+        912
+      ],
+      "id": "00b64724-e103-4531-80a2-bb08aaf3aa70",
+      "name": "Create a document1",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "923yHmU7r8Qdju2p",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "create",
+        "projectId": "=affable-seat-472719-h3",
+        "database": "=(default)",
+        "collection": "='youtube_id'",
+        "documentId": "={{ $('Extract video ID').item.json.video_id }}, {{ $('Telegram Trigger').item.json.message.text }}",
+        "columns": "={\n  \"id\": \"={{ $('Extract video ID').item.json.video_id }}\",\n\n  \"result\": \"={{ $node['AI Agent4'].json['output'] }}\",\n\n  \"st\": \"={{ $('Telegram Trigger').item.json.message.text }}\",\n\n  \"created_at\": \"={{ new Date().toISOString() }}\"\n}"
+      },
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1.1,
+      "position": [
+        6064,
+        288
+      ],
+      "id": "fb724184-06e5-4d6f-b4aa-80fb7c920e33",
+      "name": "Create a document",
+      "credentials": {
+        "googleApi": {
+          "id": "w6qMBkG9rsM9xPTp",
+          "name": "Google Service Account account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Transcript – RapidAPI2": {
+      "main": [
+        [
+          {
+            "node": "Merge transcript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Problem in the Transcript API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [
+          {
+            "node": "Saving the URL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Getting URL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Move Document to Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Welcoming Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Saving the URL": {
+      "main": [
+        [
+          {
+            "node": "Asking user for the choice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Getting URL": {
+      "main": [
+        [
+          {
+            "node": "Extract video ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent4": {
+      "main": [
+        [
+          {
+            "node": "Send Final Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Build Prompt CBK",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Prompt Summary",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Prompt Start time",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "collect data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Prompt CBK": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Prompt Summary": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Prompt Start time": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Determine Message Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Final Message": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Script": {
+      "main": [
+        [
+          {
+            "node": "Send a report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get for Gmail": {
+      "main": [
+        [
+          {
+            "node": "Email Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a report": {
+      "main": [
+        [
+          {
+            "node": "Create a document1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Daily Report": {
+      "main": [
+        [
+          {
+            "node": "Get for Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document": {
+      "main": [
+        [
+          {
+            "node": "Generate Folder Structure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert HTML to Plain Text Table": {
+      "main": [
+        [
+          {
+            "node": "Update a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Folder Structure": {
+      "main": [
+        [
+          {
+            "node": "Create Daily Reports Subfolder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Daily Reports Subfolder": {
+      "main": [
+        [
+          {
+            "node": "Move Document to Folder1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Monthly Report": {
+      "main": [
+        [
+          {
+            "node": "Create Month Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send Final Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ar Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "collect data": {
+      "main": [
+        [
+          {
+            "node": "Build JWT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Token": {
+      "main": [
+        [
+          {
+            "node": "DeepPrompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build JWT": {
+      "main": [
+        [
+          {
+            "node": "Get Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Ar Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DeepPrompt": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Determine Message Type": {
+      "main": [
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract video ID": {
+      "main": [
+        [
+          {
+            "node": "YouTube Data API v3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YouTube Data API v3": {
+      "main": [
+        [
+          {
+            "node": "Send a confirmation message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Problem in the Youtube v3 API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a confirmation message": {
+      "main": [
+        [
+          {
+            "node": "Transcript – RapidAPI2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge transcript": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move Document to Folder": {
+      "main": [
+        [
+          {
+            "node": "Create a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a document1": {
+      "main": [
+        [
+          {
+            "node": "Convert HTML to Plain Text Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8fa2fb4c-dc64-44fb-8a42-c940bb777885",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e97d8f3dc89cc81b31e41073edf6df910cbbbe428aaf7c4cad53a3a1f05d73ca"
+  },
+  "id": "ZjpaCJiE6HKwhRM2",
+  "tags": []
+}
